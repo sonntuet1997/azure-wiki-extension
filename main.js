@@ -32,7 +32,15 @@ function whenElementAppear() {
     let desEditor = new FroalaEditor('#des-editor', {
       events: {
         contentChanged: function () {
-          $(".html-editor-container:first .rooster-editor")[0].innerHTML = this.html.get();
+          let tempHtml = this.html;
+          let temp = tempHtml.get();
+          let tempE = $(temp);
+          let inner = '';
+          tempE.find("td").css("border", "solid 1px black");
+          for (let i = 0; i < tempE.length; i++) {
+            inner += tempE[i].outerHTML;
+          }
+          $(".html-editor-container:first .rooster-editor")[0].innerHTML = inner;
           $(".html-editor-container:first .rooster-editor")[0].dispatchEvent(new Event('input', {bubbles: true}));
         }
       }
